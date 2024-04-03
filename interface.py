@@ -22,6 +22,14 @@ for _ in range(4):
     border_pen.rt(90)
 border_pen.hideturtle()
 
+# Snake head
+head = turtle.Turtle()
+head.speed(0)  # Animation speed (0=fastest)
+head.shape("square")
+head.color("white")
+head.penup()  # Don't draw lines while moving
+head.goto(0, 0)
+head.direction = "stop"  # Initially, the snake doesn't move
 
 
 
