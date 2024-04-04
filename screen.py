@@ -11,17 +11,28 @@ high_score = 0
 # Set up the screen
 wn = turtle.Screen()
 wn.title("Snake Game by @X GROUP")
-wn.bgcolor("green")
+wn.bgcolor("black")
 wn.setup(width=600, height=600)
 wn.tracer(0) # Turns off the screen updates
 
-
+# Draw border
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("red")
+border_pen.penup()
+border_pen.goto(-260, 250)
+border_pen.pendown()
+border_pen.pensize(5)
+for _ in range(4):
+    border_pen.fd(500)
+    border_pen.rt(90)
+border_pen.hideturtle()
 
 # Snake head
 head = turtle.Turtle()
 head.speed(0)
 head.shape("circle")
-head.color("blue")
+head.color("white")
 head.penup()
 head.goto(0,0)
 head.direction = "stop"
@@ -45,7 +56,7 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
-pen.write("Score: 0  High Score: 0", align="center", font=("Courier", 24, "normal"))
+pen.write("Score: 0  High Score: 0", align="center", font=("Courier", 24))
 
 # Functions
 def go_up():
@@ -93,7 +104,7 @@ while True:
     wn.update()
 
     # Check for a collision with the border
-    if head.xcor()>270 or head.xcor()<-270 or head.ycor()>235 or head.ycor()<-270:
+    if head.xcor()>220 or head.xcor()<-240 or head.ycor()>225 or head.ycor()<-220:
         time.sleep(1)
         head.goto(0,0)
         head.direction = "stop"
@@ -118,8 +129,8 @@ while True:
     # Check for a collision with the food
     if head.distance(food) < 20:
         # Move the food to a random spot
-        x = random.randint(-270, 270)
-        y = random.randint(-260, 240)
+        x = random.randint(-239, 219)
+        y = random.randint(-219, 224)
         food.goto(x,y)
 
         # Add a segment
