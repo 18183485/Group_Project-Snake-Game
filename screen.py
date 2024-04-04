@@ -19,9 +19,6 @@ except Exception:
     print('error!:')
 score = 0
 
-
-
-
 # Set up the screen
 wn = turtle.Screen()
 wn.title("Snake Game by @X GROUP")
@@ -113,9 +110,16 @@ wn.onkeypress(go_down, "Down")
 wn.onkeypress(go_left, "Left")
 wn.onkeypress(go_right, "Right")
 j=True
+text_writer = turtle.Turtle()
+text_writer.hideturtle() 
+text_writer.color('white')  # Set the text color
+text_writer.penup()
+text_writer.goto(0, 0)
 # Main game loop
 while j:
     wn.update()
+    
+    
 
     # Check for a collision with the border
     if head.xcor()>220 or head.xcor()<-240 or head.ycor()>225 or head.ycor()<-222:
@@ -125,9 +129,20 @@ while j:
        
         with open('highscore.csv','w') as csvfile:
             csvfile.write(str(high_score))
+       
+        
+        text_writer.write('GAMEOVER! SCORE: {}'.format(score) ,align="center", font=("Arial", 24, "normal"))
+        wn.update()
+        time.sleep(3)
+        text_writer.clear()
 
+    
+        
 
-        # Hide the segments
+        
+
+# Clear the screen after 3 seconds
+        #text_writer.clear() # Hide the segments
         for segment in segments:
             segment.goto(1000, 1000)
         
@@ -136,10 +151,10 @@ while j:
 
         # Reset the score
         score = 0
-
+       
         # Reset the delay
         delay = 0.1
-
+        
         pen.clear()
         pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal")) 
 
@@ -213,6 +228,8 @@ while j:
             #prompt player to play again or quit
     if score>=50:
         increment=25
+    
     time.sleep(delay)
+    
 
 wn.mainloop()
