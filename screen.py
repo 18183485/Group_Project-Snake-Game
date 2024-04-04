@@ -1,12 +1,26 @@
 import turtle
 import time
 import random
-
+import csv
 delay = 0.1
 
 # Score
+def read_from_csv():
+    values = []
+    with open('highscore.csv', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            values.append(int(row[0]))  # Convert to int and add to list
+    return values
+try:
+    val=read_from_csv()
+    high_score=val[0]
+except Exception:
+    print('error!:')
 score = 0
-high_score = 0
+
+
+
 
 # Set up the screen
 wn = turtle.Screen()
@@ -98,16 +112,20 @@ wn.onkeypress(go_up, "Up")
 wn.onkeypress(go_down, "Down")
 wn.onkeypress(go_left, "Left")
 wn.onkeypress(go_right, "Right")
-
+j=True
 # Main game loop
-while True:
+while j:
     wn.update()
 
     # Check for a collision with the border
-    if head.xcor()>220 or head.xcor()<-240 or head.ycor()>225 or head.ycor()<-220:
+    if head.xcor()>220 or head.xcor()<-240 or head.ycor()>225 or head.ycor()<-222:
         time.sleep(1)
         head.goto(0,0)
         head.direction = "stop"
+       
+        with open('highscore.csv','w') as csvfile:
+            csvfile.write(str(high_score))
+
 
         # Hide the segments
         for segment in segments:
@@ -174,7 +192,8 @@ while True:
             head.goto(0,0)
             head.direction = "stop"
 
-        
+            with open('highscore.csv','w') as csvfile:
+                csvfile.write(str(high_score))
             # Hide the segments
             for segment in segments:
                 segment.goto(1000, 1000)
