@@ -25,6 +25,7 @@ head.color("blue")
 head.penup()
 head.goto(0,0)
 head.direction = "stop"
+increment=20
 
 # Snake food
 food = turtle.Turtle()
@@ -66,23 +67,23 @@ def go_right():
 def move():
     if head.direction == "up":
         y = head.ycor()
-        head.sety(y + 20)
+        head.sety(y + increment)
 
     if head.direction == "down":
         y = head.ycor()
-        head.sety(y - 20)
+        head.sety(y - increment)
 
     if head.direction == "left":
         x = head.xcor()
-        head.setx(x - 20)
+        head.setx(x - increment)
 
     if head.direction == "right":
         x = head.xcor()
-        head.setx(x + 20)
+        head.setx(x + increment)
 
 # Keyboard bindings
 wn.listen()
-wn.onkeypress(go_up, "w")
+wn.onkeypress(go_up, "Up")
 wn.onkeypress(go_down, "Down")
 wn.onkeypress(go_left, "Left")
 wn.onkeypress(go_right, "Right")
@@ -92,7 +93,7 @@ while True:
     wn.update()
 
     # Check for a collision with the border
-    if head.xcor()>290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+    if head.xcor()>270 or head.xcor()<-270 or head.ycor()>235 or head.ycor()<-270:
         time.sleep(1)
         head.goto(0,0)
         head.direction = "stop"
@@ -117,8 +118,8 @@ while True:
     # Check for a collision with the food
     if head.distance(food) < 20:
         # Move the food to a random spot
-        x = random.randint(-290, 290)
-        y = random.randint(-290, 290)
+        x = random.randint(-270, 270)
+        y = random.randint(-260, 240)
         food.goto(x,y)
 
         # Add a segment
@@ -161,6 +162,7 @@ while True:
             time.sleep(1)
             head.goto(0,0)
             head.direction = "stop"
+
         
             # Hide the segments
             for segment in segments:
@@ -178,7 +180,9 @@ while True:
             # Update the score display
             pen.clear()
             pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
-
+            #prompt player to play again or quit
+    if score>=50:
+        increment=25
     time.sleep(delay)
 
 wn.mainloop()
