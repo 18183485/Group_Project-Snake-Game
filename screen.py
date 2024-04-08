@@ -170,7 +170,7 @@ while j:
         new_segment = turtle.Turtle()
         new_segment.speed(0)
         new_segment.shape("circle")
-        new_segment.color("blue")
+        new_segment.color("green")
         new_segment.penup()
         segments.append(new_segment)
 
